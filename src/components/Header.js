@@ -13,7 +13,7 @@ const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
 
   const [isMenu, setIsMenu] = useState(false);
 
@@ -39,6 +39,12 @@ const Header = () => {
     dispatch({
       type: actionType.SET_USER,
       user: null,
+    });
+  };
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
     });
   };
   return (
@@ -81,11 +87,18 @@ const Header = () => {
               Service
             </li>
           </motion.ul>
-          <div className="relative flex justify-center items-center">
+          <div
+            className="relative flex justify-center items-center"
+            onClick={showCart}
+          >
             <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
-            <div className=" absolute -top-2 -right-2 w-5 h-5 flex justify-center items-center rounded-full bg-cardNumBg">
-              <p className="text-xs text-white font-semibold">2</p>
-            </div>
+            {cartItems && cartItems.length > 0 && (
+              <div className=" absolute -top-2 -right-2 w-5 h-5 flex justify-center items-center rounded-full bg-cardNumBg">
+                <p className="text-xs text-white font-semibold">
+                  {cartItems.length}
+                </p>
+              </div>
+            )}
           </div>
           <div className="relative">
             <motion.img
@@ -126,11 +139,18 @@ const Header = () => {
 
       {/* mobile*/}
       <div className="flex items-center justify-between md:hidden w-full h-full">
-        <div className="relative flex justify-center items-center">
+        <div
+          className="relative flex justify-center items-center"
+          onClick={showCart}
+        >
           <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
-          <div className=" absolute -top-2 -right-2 w-5 h-5 flex justify-center items-center rounded-full bg-cardNumBg">
-            <p className="text-xs text-white font-semibold">2</p>
-          </div>
+          {cartItems && cartItems.length > 0 && (
+            <div className=" absolute -top-2 -right-2 w-5 h-5 flex justify-center items-center rounded-full bg-cardNumBg">
+              <p className="text-xs text-white font-semibold">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
         </div>
         <Link to={"/"} className="flex items-center gap-2">
           <img src={Logo} className="w-8 object-cover" alt="logo" />

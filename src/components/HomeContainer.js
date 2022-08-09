@@ -50,7 +50,10 @@ function HomeContainer() {
             HeroData.map((n) => {
               return (
                 <>
-                  <div className=" lg:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl flex justify-center items-center flex-col shadow-lg">
+                  <div
+                    key={n.id}
+                    className=" lg:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl flex justify-center items-center flex-col shadow-lg"
+                  >
                     <img
                       src={n.imagesrc}
                       className=" w-20 lg:w-40 lg:-mt-20 -mt-10"
